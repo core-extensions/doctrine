@@ -1,0 +1,73 @@
+<?php
+
+$finder = PhpCsFixer\Finder::create()
+    ->in(__DIR__);
+
+$currentYear = date('Y');
+$header = <<<TXT
+TXT;
+
+return PhpCsFixer\Config::create()
+    ->setRiskyAllowed(true)
+    ->setRules(
+        [
+            '@PhpCsFixer' => true,
+            '@PhpCsFixer:risky' => true,
+            '@PHP71Migration' => true,
+            '@PHP71Migration:risky' => true,
+            '@PHPUnit60Migration:risky' => true,
+            '@DoctrineAnnotation' => true,
+            'cast_spaces' => ['space' => 'none'],
+            'class_definition' => [
+                'multi_line_extends_each_single_line' => true,
+                'single_item_single_line' => true,
+            ],
+            'concat_space' => ['spacing' => 'one'],
+            'header_comment' => [
+                'comment_type' => 'PHPDoc',
+                'header' => $header,
+            ],
+            'list_syntax' => ['syntax' => 'short'],
+            'mb_str_functions' => true,
+            'method_chaining_indentation' => false,
+            'multiline_whitespace_before_semicolons' => ['strategy' => 'no_multi_line'],
+            'native_function_invocation' => true,
+            'no_php4_constructor' => true,
+            'ordered_class_elements' => [
+                'order' => [
+                    'use_trait',
+                    'constant_public',
+                    'constant_protected',
+                    'constant_private',
+                    'property_public_static',
+                    'property_public',
+                    'property_protected_static',
+                    'property_protected',
+                    'property_private_static',
+                    'property_private',
+                    'construct',
+                    'destruct',
+                    'magic',
+                    'phpunit',
+                    'method_public_static',
+                    'method_public',
+                    'method_protected_static',
+                    'method_protected',
+                    'method_private_static',
+                    'method_private',
+                ],
+                'sortAlgorithm' => 'none',
+            ],
+            'php_unit_method_casing' => false,
+            'php_unit_test_annotation' => false,
+            'php_unit_test_class_requires_covers' => false,
+            'php_unit_strict' => false,
+            'phpdoc_to_comment' => false,
+            'phpdoc_var_without_name' => false,
+            'simplified_null_return' => true,
+            // без этого удаляет @param без описания
+            'no_superfluous_phpdoc_tags' => false,
+        ]
+    )
+    ->setFinder($finder)
+    ->setCacheFile(__DIR__.'/.php_cs.cache');
