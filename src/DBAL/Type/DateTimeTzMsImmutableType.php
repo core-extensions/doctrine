@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace CoreExtensions\Doctrine\DBAL\Type;
 
+use DateTimeImmutable;
 use Doctrine\DBAL\Platforms\AbstractPlatform;
 use Doctrine\DBAL\Platforms\MySQL57Platform;
 use Doctrine\DBAL\Platforms\PostgreSqlPlatform;
@@ -45,7 +46,7 @@ class DateTimeTzMsImmutableType extends DateTimeTzImmutableType
      */
     public function convertToDatabaseValue($value, AbstractPlatform $platform): ?string
     {
-        if (!\is_object($value)) {
+        if (!\is_object($value) || !($value instanceof DateTimeImmutable)) {
             return parent::convertToDatabaseValue($value, $platform);
         }
 
@@ -58,4 +59,40 @@ class DateTimeTzMsImmutableType extends DateTimeTzImmutableType
                 return $value->format('Y-m-d H:i:s.uP');
         }
     }
+
+    /**
+     * @param                  $value
+     * @param AbstractPlatform $platform
+     * @return bool|\DateTime|DateTimeImmutable|mixed|null
+     * @throws ConversionException
+     */
+    public function convertToPHPValue($value, AbstractPlatform $platform)
+    {
+        if ($value === null || $value instanceof DateTimeImmutable) {
+            return $value;
+        }
+
+        $dateTime = null;
+
+        /**
+         * Some platform by default save datetime without microseconds
+         */
+        switch (true) {
+            case $platform instanceof PostgreSqlPlatform:
+            case $platform instanceof MySQL57Platform:
+                $dateTime = DateTimeImmutable::createFromFormat('Y-m-d H:i:s.uP', $value);
+        }
+
+        if (!$dateTime) {
+            throw ConversionException::conversionFailedFormat(
+                $value,
+                $this->getName(),
+                $platform->getDateTimeTzFormatString()
+            );
+        }
+
+        return $dateTime;
+    }
+
+
 }
