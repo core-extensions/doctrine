@@ -1,6 +1,6 @@
 {
-    "name": "core-extensions/doctrine-extensions",
-    "description": "doctrine-extensions",
+    "name": "core-extensions/doctrine",
+    "description": "doctrine extensions",
     "type": "library",
     "license": "private",
     "require": {
@@ -15,12 +15,12 @@
     },
     "autoload": {
         "psr-4": {
-            "CoreExtensions\\DoctrineExtensions\\": "src/"
+            "CoreExtensions\\Doctrine\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "CoreExtensions\\DoctrineExtensions\\Tests\\": "tests/"
+            "CoreExtensions\\Doctrine\\Tests\\": "tests/"
         }
     },
     "scripts": {

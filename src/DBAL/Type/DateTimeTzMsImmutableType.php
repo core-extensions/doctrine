@@ -2,14 +2,13 @@
 
 declare(strict_types=1);
 
-namespace CoreExtensions\DoctrineExtensions\DBAL\Type;
+namespace CoreExtensions\Doctrine\DBAL\Type;
 
 use Doctrine\DBAL\Platforms\AbstractPlatform;
 use Doctrine\DBAL\Platforms\MySQL57Platform;
 use Doctrine\DBAL\Platforms\PostgreSqlPlatform;
 use Doctrine\DBAL\Types\ConversionException;
 use Doctrine\DBAL\Types\DateTimeTzImmutableType;
-use Doctrine\DBAL\Types\VarDateTimeImmutableType;
 
 /**
  * Override datetime datatype to support microseconds

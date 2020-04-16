@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/doctrine-extensions.iml" filepath="$PROJECT_DIR$/.idea/doctrine-extensions.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/doctrine.iml" filepath="$PROJECT_DIR$/.idea/doctrine.iml" />
     </modules>
   </component>
 </project>
