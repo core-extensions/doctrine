@@ -55,9 +55,7 @@ class DateTimeTzMsImmutableType extends DateTimeTzImmutableType
         switch (true) {
             case $platform instanceof PostgreSqlPlatform:
             case $platform instanceof MySQL57Platform:
-                $dateTimeFormat = $platform->getDateTimeTzFormatString();
-
-                return $value->format("{$dateTimeFormat}.u");
+                return $value->format('Y-m-d H:i:s.uP');
         }
     }
 }
