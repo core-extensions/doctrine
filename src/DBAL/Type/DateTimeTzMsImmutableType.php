@@ -19,6 +19,9 @@ use Doctrine\DBAL\Types\DateTimeTzImmutableType;
  */
 class DateTimeTzMsImmutableType extends DateTimeTzImmutableType
 {
+    private const FORMAT = 'Y-m-d H:i:s.uP';
+    private const FORMAT_WITH_ZERO_MS = 'Y-m-d H:i:sP';
+
     /**
      * @param array            $fieldDeclaration
      * @param AbstractPlatform $platform
@@ -56,7 +59,7 @@ class DateTimeTzMsImmutableType extends DateTimeTzImmutableType
         switch (true) {
             case $platform instanceof PostgreSqlPlatform:
             case $platform instanceof MySQL57Platform:
-                return $value->format('Y-m-d H:i:s.uP');
+                return $value->format(static::FORMAT);
         }
     }
 
@@ -80,14 +83,22 @@ class DateTimeTzMsImmutableType extends DateTimeTzImmutableType
         switch (true) {
             case $platform instanceof PostgreSqlPlatform:
             case $platform instanceof MySQL57Platform:
-                $dateTime = DateTimeImmutable::createFromFormat('Y-m-d H:i:s.uP', $value);
+                $dateTime = DateTimeImmutable::createFromFormat(static::FORMAT, $value);
+                break;
+        }
+
+        if (false === $dateTime) {
+            /**
+             * if the date has zero in microseconds part
+             */
+            $dateTime = DateTimeImmutable::createFromFormat($platform->getDateTimeTzFormatString(), $value);
         }
 
         if (!$dateTime) {
             throw ConversionException::conversionFailedFormat(
                 $value,
                 $this->getName(),
-                $platform->getDateTimeTzFormatString()
+                static::FORMAT
             );
         }
 

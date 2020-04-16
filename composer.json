@@ -1,6 +1,6 @@
 {
     "name": "core-extensions/doctrine",
-    "version": "1.0.1",
+    "version": "1.0.3",
     "description": "doctrine extensions",
     "type": "library",
     "license": "private",
