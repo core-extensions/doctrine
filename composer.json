@@ -1,11 +1,11 @@
 {
     "name": "core-extensions/doctrine",
-    "version": "1.0.3",
+    "version": "1.0.4",
     "description": "doctrine extensions",
     "type": "library",
     "license": "private",
     "require": {
-        "php": "^7.3",
+        "php": "^7.2",
         "doctrine/doctrine-bundle": "^2.0"
     },
     "require-dev": {
